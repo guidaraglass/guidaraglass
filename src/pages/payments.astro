@@ -1,0 +1,118 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+import ContactCTA from '../components/ContactCTA.astro';
+import Hero from '../components/Hero.astro';
+
+---
+
+<BaseLayout title="Payments | Guidara Glass Designs" description="Information on investing in stained glass art">
+	<div class="stack gap-20">
+		<main class="wrapper payments">
+			<Hero
+				title="Payments"
+				tagline="How to purchase stained glass artwork"
+			>
+			</Hero>
+
+			<section>
+				<h2 class="section-title">Custom Artwork</h2>
+				<div class="content">
+					<p>Each piece of artwork that I create is custom designed to fit your desires and specifications. We can work together to bring your art to life while respecting your budget. There are examples of past pieces that I have created with their pricing on <a target="_blank" rel="noopener noreferrer" href="https://forms.gle/RBHysMmDDVPasBDK8">my commission form</a>.</p>
+				</div>
+			</section>
+			<section>
+				<h2 class="section-title">Submitting payments</h2>
+				<div class="content payment">
+					<p>Need to submit a payment?</p>
+                    <script is:inline src="ttps://www.paypal.com/sdk/js?client-id=BAA-SERtuzOIZaDAtzI-2I5bJltj9WONTIo0dfei4cP55_BuKEPl9zUYLOO5pJBCAuAnbI3GOWRiAvZov8&components=hosted-buttons&enable-funding=venmo&currency=USDD"></script>
+                    <div id="paypal-container-MNQY25YHJGSFS"></div>
+                    <script is:inline>
+                        paypal.HostedButtons({
+                            hostedButtonId: "MNQY25YHJGSFS",
+                        }).render("#paypal-container-MNQY25YHJGSFS")
+                    </script>
+				</div>
+			</section>
+		</main>
+	</div>
+    <ContactCTA />
+</BaseLayout>
+
+
+<style>
+	.payments {
+		display: flex;
+		flex-direction: column;
+		gap: 3.5rem;
+	}
+
+    .payment {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .payments :global(a) {
+        max-width: 20rem;
+    }
+
+	img {
+		margin-top: 1.5rem;
+		border-radius: 1.5rem;
+		box-shadow: var(--shadow-md);
+	}
+
+	section {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		color: var(--gray-200);
+	}
+
+	#paypal-container-LZDARZUZZBUHJ {
+		width: 100% !important;
+		overflow: auto;
+	}
+
+	.section-title {
+		grid-column-start: 1;
+		font-size: var(--text-xl);
+		color: var(--gray-0);
+	}
+
+	.content {
+		grid-column: 2 / 4;
+	}
+
+    .content :global(p) {
+        margin-bottom: 1.5rem;
+    }
+
+	.content :global(a) {
+		text-decoration: 1px solid underline transparent;
+		text-underline-offset: 0.25em;
+		transition: text-decoration-color var(--theme-transition);
+	}
+
+	.content :global(a:hover),
+	.content :global(a:focus) {
+		text-decoration-color: currentColor;
+	}
+
+	@media (min-width: 50em) {
+		.about {
+			display: grid;
+			grid-template-columns: 1fr 60% 1fr;
+		}
+
+		.about > :global(:first-child) {
+			grid-column-start: 2;
+		}
+
+		section {
+			display: contents;
+			font-size: var(--text-lg);
+		}
+	}
+</style>
