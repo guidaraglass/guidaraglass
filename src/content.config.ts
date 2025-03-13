@@ -35,7 +35,6 @@ export const collections = {
 			}
 			// Must return an array of entries with an id property, or an object with IDs as keys and entries as values
 			return data.data.filter((post: { id: string; media_type: string; media_url: string | null }) => post.media_type !== 'VIDEO' && post.media_url !== undefined ).map((post: { caption: string }) => {
-				console.log({post})
 				return { 
 					...post,
 					caption: createCaptions(post.caption)
