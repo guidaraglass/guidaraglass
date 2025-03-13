@@ -24,10 +24,20 @@ export const collections = {
 	work: defineCollection({
 		// Load Instagram posts from the REST API
 		loader: async () => {
-			const response = await fetch(`https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,permalink&access_token=${import.meta.env.VITE_ACCESS_TOKEN}`);
+			let response = await fetch(`https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,permalink&access_token=${import.meta.env.VITE_ACCESS_TOKEN}`);
 			const data = await response.json();
+			console.log({data})
+			let isMoreData = data.paging.next !== undefined;
+			while (isMoreData) {
+				response = await fetch(data.paging.next);
+				console.log({response})
+				const nextData = await response.json();
+				data.data.push(...nextData.data);
+				isMoreData = nextData.paging.next
+			}
 			// Must return an array of entries with an id property, or an object with IDs as keys and entries as values
-			return data.data.filter((post: { media_type: string; }) => post.media_type !== 'VIDEO' && post.media_type !== 'CAROUSEL_ALBUM').map((post: { caption: string }) => {
+			return data.data.filter((post: { id: string; media_type: string; media_url: string | null }) => post.media_type !== 'VIDEO' && post.media_url !== undefined ).map((post: { caption: string }) => {
+				console.log({post})
 				return { 
 					...post,
 					caption: createCaptions(post.caption)
