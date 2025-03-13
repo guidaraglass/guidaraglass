@@ -26,11 +26,9 @@ export const collections = {
 		loader: async () => {
 			let response = await fetch(`https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,permalink&access_token=${import.meta.env.VITE_ACCESS_TOKEN}`);
 			const data = await response.json();
-			console.log({data})
 			let isMoreData = data.paging.next !== undefined;
 			while (isMoreData) {
 				response = await fetch(data.paging.next);
-				console.log({response})
 				const nextData = await response.json();
 				data.data.push(...nextData.data);
 				isMoreData = nextData.paging.next
