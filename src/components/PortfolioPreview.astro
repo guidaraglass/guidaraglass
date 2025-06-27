@@ -9,7 +9,7 @@ const { data, id } = Astro.props.project;
 ---
 
 <a class="card" href={`/work/${id}`}>
-	<img src={data.media_url} alt={'Stained glass art'} loading="lazy" decoding="async" />
+	<img src={'../' + data.image} alt={data.alt} loading="lazy" decoding="async" />
 </a>
 
 <style>

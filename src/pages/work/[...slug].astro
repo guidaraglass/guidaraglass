@@ -26,6 +26,7 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
+
 ---
 
 <BaseLayout description={entry.data.caption}>
@@ -35,19 +36,23 @@ const { Content } = await render(entry);
 				<div class="wrapper stack gap-2">
 					<a class="back-link" href="/work/"><Icon icon="arrow-left" /> Work</a>
 					<Hero title="" align="start">
-						<div class="details">
-							<p class="description" set:html={entry.data.caption} />
-						</div>
+						{entry.data.caption && (
+							<div class="details">
+								<p class="description" set:html={entry.data.caption} />
+							</div>
+						)}
 					</Hero>
 				</div>
 			</header>
 			<main class="wrapper">
 				<div class="stack gap-10 content">
-					{entry.data.media_url && <img src={entry.data.media_url} alt={'Stained glass art'} />}
+					{entry.data.image && <img src={entry.data.image} alt={entry.data.alt} />}
 				</div>
-				<div class="stack details">
-					<a href={entry.data.permalink}><Icon icon="instagram-logo" size="1.2em" /> Instagram</a>
-				</div>
+				{entry.data.permalink && (
+					<div class="stack details">
+						<a href={entry.data.permalink}><Icon icon="instagram-logo" size="1.2em" /> Instagram</a>
+					</div>
+				)}
 			</main>
 		</div>
 		<ContactCTA />
